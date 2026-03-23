@@ -5,10 +5,6 @@ import os
 
 app = Flask(__name__)
 
-if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', 
-            port=int(os.environ.get('PORT', 5000)))
-    
 def get_jobs():
     conn = sqlite3.connect('jobs.db')
     c = conn.cursor()
@@ -63,4 +59,5 @@ def update_status(job_id):
     return redirect('/')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    
