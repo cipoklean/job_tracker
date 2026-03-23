@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #1F3864; text-align: center; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: #1F3864;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        td {padding: 10px 12px; border-bottom: 1px solid #eee; }
+        tr:hover {background: #f0f4ff; }
+    </style>
+</head>
+<body>
+    <h1> Job Application Tracker</h1>
+
+    {% if jobs %}
+    <table>
+        <tr>
+            <th>Company</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Date Applied</th>
+            <th>Follow Up</th>
+            <th>Actions</th>
+            </tr>
+            {% for job in jobs %}
+            <tr>
+                <td>{{ job[1] }}</td>
+                <td>{{ job[2] }}</td>
+                <td>{{ job[4] }}</td>
+                <td>{{ job[5] }}</td>
+                <td>{{ job[6] }}</td>
+                <td>
+                    <form action="/update/{{ job[0] }}" method="POST" style="display:inline">
+                        <select name="status" style="padding: 4px;">
+                            <option>Applied</option>
+                            <option>Interview</option>
+                            <option>Offer</option>
+                            <option>Rejected</option>
+                        </select>
+                        <button type="submit" style="background: #2E75B6; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Update</button>
+                        </form>
+                        <a href="/delete/{{ job[0] }}" onclick="return confirm('Delete this job?')"
+                            style="background: #cc0000; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; margin-left: 4px;">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No jobs tracked yet!</p>
+    {% endif %}  
+    <p>Track all your job applications in one place!</p>
+</body>
+</html>
+
+<h2 style="color: #2E75B6;">Add New Job</h2>
+<form action="/add" method="POST" style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <input type="text" name="company" placeholder="Company name" required
+           style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+    <input type="text" name="role" placeholder="Job role" required
+           style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+    <input type="text" name="link" placeholder="Job link" 
+           style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+    <button type="submit" 
+            style="background: #1F3864; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+        Add Job
+    </button>
+</form>
