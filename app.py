@@ -5,6 +5,20 @@ import os
 
 app = Flask(__name__)
 
+def setup_database():
+    conn = sqlite3.connect('jobs.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS jobs
+                (id INTEGER PRIMARY KEY,
+                company TEXT,
+                role TEXT,
+                link TEXT,
+                status TEXT,
+                date_applied TEXT,
+                follow_up TEXT)''')
+    conn.commit()
+    conn.close()
+    
 def get_jobs():
     conn = sqlite3.connect('jobs.db')
     c = conn.cursor()
