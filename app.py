@@ -18,7 +18,7 @@ def setup_database():
                 follow_up TEXT)''')
     conn.commit()
     conn.close()
-    
+
 def get_jobs():
     conn = sqlite3.connect('jobs.db')
     c = conn.cursor()
@@ -27,8 +27,12 @@ def get_jobs():
     conn.close()
     return jobs
 
+with app.app_context():
+    setup_database()
+    
 @app.route('/')
 def home():
+    setup_database()
     jobs = get_jobs()
     return render_template('index.html', jobs=jobs)
 
