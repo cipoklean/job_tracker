@@ -30,6 +30,11 @@
     </style>
 </head>
 <body>
+    <div style="text-align: right; margin-bottom: 10px;">
+        Welcome, <strong>{{ username }}</strong>! 
+        <a href="/logout" style="color: #cc0000; margin-left: 10px;">Logout</a>
+    </div>
+
     <h1> Job Application Tracker</h1>
 
     {% if jobs %}
@@ -37,6 +42,7 @@
         <tr>
             <th>Company</th>
             <th>Role</th>
+            <th>Link</th>
             <th>Status</th>
             <th>Date Applied</th>
             <th>Follow Up</th>
@@ -44,11 +50,12 @@
             </tr>
             {% for job in jobs %}
             <tr>
-                <td>{{ job[1] }}</td>
                 <td>{{ job[2] }}</td>
-                <td>{{ job[4] }}</td>
+                <td>{{ job[3] }}</td>
+                <td><a href="{{ job[4] }}" target="_blank">View Job</a></td>
                 <td>{{ job[5] }}</td>
                 <td>{{ job[6] }}</td>
+                <td>{{ job[7] }}</td>
                 <td>
                     <form action="/update/{{ job[0] }}" method="POST" style="display:inline">
                         <select name="status" style="padding: 4px;">
